@@ -12,8 +12,7 @@ pipeline {
         stage('Deploy Website') {
             steps {
                 sh '''
-                sudo cp -r * /var/www/html/
-                sudo rm -rf /var/www/html/.git
+                sudo cp -r index.html /var/www/html/
                 sudo systemctl restart httpd
                 '''
             }
