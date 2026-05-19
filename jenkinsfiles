@@ -3,20 +3,30 @@ pipeline {
 
     stages {
 
-        stage('Clone Repository') {
+        stage('Clone from GITHUB') {
             steps {
-                git 'https://github.com/cskarthi2752/car-website-1.git'
+            git branch: 'main',
+                url 'https://github.com/karthik-v/carwebsite-main.git'
             }
         }
 
-        stage('Deploy Website') {
+        stage('Deploy to Apache') {
             steps {
                 sh '''
-                sudo cp -r index.html /var/www/html/
+                sudo cp -r * /var/www/html/
                 sudo systemctl restart httpd
                 '''
             }
         }
-
     }
 }
+
+post {
+   success {
+       echo 'Car Website Deployed Successfully!,
+       }
+   failure {
+       echo 'Deployment Failed!,
+       }
+     }
+  }
